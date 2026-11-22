@@ -106,11 +106,11 @@ export function splitTranscript(transcript, { chunkSize = 1000, chunkOverlap = 2
 
   while (firstIndex < segments.length) {
     const endIndex = findChunkEnd(firstIndex);
-    chunks.push(createChunkDocument(firstIndex, endIndex));
+    chunks.push(createChunkDocument(firstIndex, endIndex, chunks.length));
 
     if (endIndex === segments.length) break;
 
-    firstIndex = findOverlapStart(firstIndex, endIndex, chunks.length);
+    firstIndex = findOverlapStart(firstIndex, endIndex);
   }
 
   return chunks;
