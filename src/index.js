@@ -1,0 +1,1 @@
+console.log("AskTube backend is running!");

@@ -1,0 +1,21 @@
+{
+  "name": "asktube",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joydeep-devx/asktube.git"
+  },
+  "keywords": [],
+  "author": "Joydeep Saha",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/joydeep-devx/asktube/issues"
+  },
+  "homepage": "https://github.com/joydeep-devx/asktube#readme"
+}
