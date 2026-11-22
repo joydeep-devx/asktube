@@ -44,7 +44,6 @@ export const getYoutubeTranscript = async (url, { lang } = {}) => {
     author: result.videoDetails?.author ?? null,
     duration: Number(result.videoDetails?.lengthSeconds ?? 0),
     language: result.segments[0]?.lang ?? lang ?? null,
-    segments,
-    text: segments.map((segment) => segment.text).join(" "),
+    segments
   };
 };
