@@ -19,6 +19,13 @@
   },
   "homepage": "https://github.com/joydeep-devx/asktube#readme",
   "dependencies": {
+    "@langchain/classic": "^1.0.62",
+    "@langchain/core": "^1.5.0",
+    "@langchain/google": "^0.2.17",
+    "@langchain/google-genai": "^2.3.7",
+    "@langchain/textsplitters": "^1.0.2",
+    "dotenv": "^18.0.10",
+    "langchain": "^1.6.7",
     "youtube-transcript": "^1.3.1",
     "youtube-transcript-plus": "^2.0.5"
   }
