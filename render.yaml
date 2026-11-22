@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: asktube-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: node src/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "24.22.0"
+      - key: GOOGLE_API_KEY
+        sync: false

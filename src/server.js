@@ -2,6 +2,11 @@ import "dotenv/config";
 import { createServer } from "node:http";
 import { createVideoChain } from "./rag/videoChain.js";
 
+const port = Number(process.env.PORT ?? 4317);
+const onRender = process.env.RENDER === "true";
+const bindHost = onRender ? "0.0.0.0" : "127.0.0.1";
+const requestHost = onRender ? process.env.RENDER_EXTERNAL_HOSTNAME : `127.0.0.1:${port}`;
+
 // Share indexing work between questions, including simultaneous first requests.
 const videos = new Map();
 function getChain(videoId) {
@@ -23,8 +28,9 @@ const server = createServer(async (req, res) => {
     res.writeHead(status, { "Content-Type": "application/json", "Cache-Control": "no-store" });
     res.end(JSON.stringify(data));
   }
+  if (req.method === "GET" && req.url === "/health") return send(200, { status: "ok" });
   if (req.method !== "POST" || req.url !== "/ask") return send(404, { error: "Unknown endpoint." });
-  if (req.headers.host !== "127.0.0.1:4317" ||
+  if (req.headers.host !== requestHost ||
       (req.headers.origin && !/^chrome-extension:\/\/[a-p]{32}$/.test(req.headers.origin))) {
     return send(403, { error: "Unsupported origin." });
   }
@@ -54,4 +60,4 @@ const server = createServer(async (req, res) => {
     send(502, { error: "Couldn’t answer for this video. Check English caption availability and your Gemini configuration, then try again." });
   }
 });
-server.listen(4317, "127.0.0.1", () => console.log("AskTube is listening on http://127.0.0.1:4317"));
+server.listen(port, bindHost, () => console.log(`AskTube is listening on http://${bindHost}:${port}`));
