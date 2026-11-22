@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AskTube</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <header><span class="mark" aria-hidden="true">▶</span><strong>AskTube</strong></header>
+  <section class="video" aria-labelledby="title">
+    <img id="thumbnail" alt="" width="80" height="48" hidden>
+    <h1 id="title">Open a YouTube video</h1>
+  </section>
+  <div id="starters" hidden>
+    <button type="button">Summarize this video</button>
+    <button type="button">What are the key takeaways?</button>
+  </div>
+  <main id="messages" role="log" aria-label="Questions and answers"></main>
+  <footer>
+    <p id="status" role="status"></p>
+    <form><textarea id="question" rows="2" maxlength="2000" required aria-label="Question about the video" placeholder="Ask about this video…"></textarea><button class="send" aria-label="Send question" disabled>↑</button></form>
+  </footer>
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

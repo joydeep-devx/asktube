@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "AskTube",
+  "description": "Ask questions about the current YouTube video and jump to cited passages.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "116",
+  "permissions": ["sidePanel", "scripting"],
+  "host_permissions": ["https://www.youtube.com/*", "http://127.0.0.1/*"],
+  "action": { "default_title": "Open AskTube" },
+  "background": { "service_worker": "background.js" },
+  "side_panel": { "default_path": "panel.html" }
+}

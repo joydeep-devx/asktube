@@ -30,8 +30,9 @@ export function createTranscriptChain(retriever, model) {
       for (const match of answer.matchAll(/\[([1-9]\d*)\]/g)) {
         const label = Number(match[1]);
         if (label > documents.length || seen.has(label)) continue;
-        const { videoId, start, end } = documents[label - 1].metadata;
-        citations.push({ label, videoId, start, end });
+        const { pageContent, metadata } = documents[label - 1];
+        const { videoId, start, end } = metadata;
+        citations.push({ label, videoId, start, end, excerpt: pageContent });
         seen.add(label);
       }
       return { answer, citations };
