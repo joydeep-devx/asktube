@@ -1,6 +1,19 @@
 import { fetchTranscript } from "youtube-transcript-plus";
 import { extractYoutubeVideoId } from "./youtubeUtil.js";
 
+// The provider maps several HTTP failures to the same error. Keep the stage
+// and status in server logs while leaving retry handling to the library.
+function youtubeFetch(stage) {
+  return async ({ url, method = "GET", lang, userAgent, headers, body, signal }) => {
+    const requestHeaders = new Headers(headers);
+    if (lang) requestHeaders.set("Accept-Language", lang);
+    if (userAgent) requestHeaders.set("User-Agent", userAgent);
+    const response = await fetch(url, { method, headers: requestHeaders, body, signal });
+    if (!response.ok) console.warn(`YouTube ${stage} returned HTTP ${response.status}`);
+    return response;
+  };
+}
+
 export const getYoutubeTranscript = async (url, { lang } = {}) => {
   // 1. Extract video ID
   const videoId = extractYoutubeVideoId(url);
@@ -14,6 +27,8 @@ export const getYoutubeTranscript = async (url, { lang } = {}) => {
     videoDetails: true,
     retries: 2,
     retryDelay: 1000,
+    videoFetch: youtubeFetch("watch page"),
+    playerFetch: youtubeFetch("player"),
   };
 
   if (lang) {
